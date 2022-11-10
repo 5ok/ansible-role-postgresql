@@ -1,3 +1,5 @@
 ---
 
-postgresql_supported: false
+postgresql_supported: true
+
+__postgresql_packages_required: []

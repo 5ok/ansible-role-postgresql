@@ -23,5 +23,9 @@
       value: postgresql
     - option: state
       value: disabled
+    - option: stream
+      value: ''
+    - option: profiles
+      value: ''
   loop_control:
     loop_var: ini

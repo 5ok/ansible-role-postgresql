@@ -1,3 +1,10 @@
 ---
 
 postgresql_supported: true
+
+__postgresql_packages_required:
+  - { name: 'python3-psycopg2', state: 'present' }
+
+__postgresql_bin_path: "/usr/lib/postgresql/{{ postgresql_version }}/bin"
+__postgresql_data_dir: "/var/lib/postgresql/{{ postgresql_version }}/main"
+__postgresql_config_path: "/etc/postgresql/{{ postgresql_version }}/main"

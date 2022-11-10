@@ -2,6 +2,22 @@
 
 postgresql_version: 15
 
-postgresql_packeges_extra: []
+postgresql_packages_extra: []
 postgresql_install_client: true
 postgresql_install_server: false
+
+postgresql_service_name: postgresql-{{ postgresql_version }}
+postgresql_service_enabled: true
+postgresql_service_state: started
+
+postgresql_user: "{{ _postgresql_user | default('postgres') }}"
+postgresql_group: "{{ _postgresql_group | default('postgres') }}"
+
+postgresql_packages_required: "{{ __postgresql_packages_required | default([]) }}"
+
+postgresql_data_dir: "{{ __postgresql_data_dir }}"
+postgresql_bin_path: "{{ __postgresql_bin_path }}"
+postgresql_config_path: "{{ __postgresql_config_path }}"
+
+postgresql_global_config_options: []
+postgresql_hba_entries: []

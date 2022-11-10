@@ -1,5 +1,13 @@
 ---
 
+- name: "Install postgresql required packages"
+  ansible.builtin.apt:
+    name: "{{ package.name }}"
+    state: "{{ package.state }}"
+  loop: "{{ postgresql_packages_required }}"
+  loop_control:
+    loop_var: package
+
 - name: "Install postgresql client"
   ansible.builtin.apt:
     name: postgresql-client-{{ postgresql_version }}
@@ -14,10 +22,10 @@
   when: postgresql_install_server
 
 
-- name: "Install postgresql estra packages"
+- name: "Install postgresql extra packages"
   ansible.builtin.apt:
     name: postgresql-{{ postgresql_version }}-{{ extra }}
     state: present
-  loop: "{{ postgresql_packeges_extra }}"
+  loop: "{{ postgresql_packages_extra }}"
   loop_control:
     loop_var: extra
