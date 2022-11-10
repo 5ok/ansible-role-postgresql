@@ -1,0 +1,26 @@
+---
+- name: "Common | set os specific variables"
+  ansible.builtin.include_vars: "{{ item }}"
+  with_first_found:
+    - "os-{{ ansible_distribution }}.yml"
+    - "os-{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+    - "os-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "os-{{ ansible_os_family }}.yml"
+    - "os-default.yml"
+
+  tags:
+    - always
+
+- name: "Include repository tasks"
+  ansible.builtin.include_tasks: repository-{{ ansible_os_family }}.yml
+  tags:
+    - postgresql
+    - postgresql:repository
+  when: postgresql_supported
+
+- name: "Install packages"
+  ansible.builtin.include_tasks: packages-{{ ansible_os_family }}.yml
+  tags:
+    - postgresql
+    - postgresql:packages
+  when: postgresql_supported

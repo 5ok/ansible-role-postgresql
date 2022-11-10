@@ -1,0 +1,27 @@
+---
+
+- name: "Install repository package"
+  ansible.builtin.dnf:
+    name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}/pgdg-redhat-repo-latest.noarch.rpm
+    state: present
+    disable_gpg_check: true
+
+- name: "Disable default postgresql module"
+  community.general.ini_file:
+    path: /etc/dnf/modules.d/postgresql.module
+    section: postgresql
+    option: "{{ ini.option }}"
+    value: "{{ ini.value }}"
+    state: present
+    no_extra_spaces: true
+    create: true
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - option: name
+      value: postgresql
+    - option: state
+      value: disabled
+  loop_control:
+    loop_var: ini

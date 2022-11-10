@@ -1,0 +1,22 @@
+---
+
+- name: "Create postgresql repository"
+  ansible.builtin.template:
+    src: repository-debian.j2
+    dest: /etc/apt/sources.list.d/pgdg.list
+    backup: false
+    owner: root
+    group: root
+    mode: 0644
+  register: repository
+
+- name: "Add an Apt signing key"
+  ansible.builtin.apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+    keyring: /etc/apt/trusted.gpg.d/pgdg.gpg
+
+- name: "Update repository"
+  ansible.builtin.apt:
+    update_cache: yes
+  when: repository.changed

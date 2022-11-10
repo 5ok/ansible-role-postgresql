@@ -1,0 +1,7 @@
+---
+
+postgresql_version: 15
+
+postgresql_packeges_extra: []
+postgresql_install_client: true
+postgresql_install_server: false
