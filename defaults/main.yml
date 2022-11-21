@@ -23,3 +23,6 @@ postgresql_config_path: "{{ __postgresql_config_path }}"
 
 postgresql_global_config_options: []
 postgresql_hba_entries: []
+
+postgresql_files: []
+postgresql_dirs: []
