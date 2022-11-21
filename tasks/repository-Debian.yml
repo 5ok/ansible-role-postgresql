@@ -2,7 +2,7 @@
 
 - name: "Create postgresql repository"
   ansible.builtin.template:
-    src: repository-debian.j2
+    src: "{{ postgresql_repository_custom | default('repository-debian.j2') }}"
     dest: /etc/apt/sources.list.d/pgdg.list
     backup: false
     owner: root

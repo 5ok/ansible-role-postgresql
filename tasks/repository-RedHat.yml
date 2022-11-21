@@ -1,10 +1,20 @@
 ---
 
 - name: "Install repository package"
-  ansible.builtin.dnf:
+  ansible.builtin.yum:
     name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}/pgdg-redhat-repo-latest.noarch.rpm
     state: present
     disable_gpg_check: true
+  when: postgresql_repository_custom == None
+
+- name: "Install repository custom"
+  ansible.builtin.template:
+    src: "{{ postgresql_repository_custom }}"
+    dest: /etc/yum.repos.d/pgdg-custom.repo
+    owner: root
+    group: root
+    mode: "0644"
+  when: postgresql_repository_custom != None
 
 - name: "Disable default postgresql module"
   community.general.ini_file:

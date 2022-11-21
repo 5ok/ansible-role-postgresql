@@ -1,7 +1,7 @@
 ---
 
 - name: "Install postgresql required packages"
-  ansible.builtin.dnf:
+  ansible.builtin.yum:
     name: "{{ package.name }}"
     state: "{{ package.state }}"
   loop: "{{ postgresql_packages_required }}"
@@ -9,21 +9,21 @@
     loop_var: package
 
 - name: "Install postgresql client"
-  ansible.builtin.dnf:
+  ansible.builtin.yum:
     name: postgresql{{ postgresql_version }}
     state: present
   when: postgresql_install_client
 
 
 - name: "Install postgresql server"
-  ansible.builtin.dnf:
+  ansible.builtin.yum:
     name: postgresql{{ postgresql_version }}-server
     state: present
   when: postgresql_install_server
 
 
 - name: "Install postgresql extra packages"
-  ansible.builtin.dnf:
+  ansible.builtin.yum:
     name: postgresql{{ postgresql_version }}-{{ extra }}
     state: present
   loop: "{{ postgresql_packages_extra }}"

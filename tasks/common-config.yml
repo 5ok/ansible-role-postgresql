@@ -21,8 +21,8 @@
     source: "{{ entry.source | default(omit) }}"
     databases: "{{ entry.databases | default(omit) }}"
     method: "{{ entry.method | default(omit) }}"
-    options: "{{ entry.options | default(omit) }}"
-    comment: "{{ entry.comment | default(omit) }}"
+#    options: "{{ entry.options | default(omit) }}"
+#    comment: "{{ entry.comment | default(omit) }}"
     keep_comments_at_rules: true
   loop: "{{ postgresql_hba_entries }}"
   loop_control:
