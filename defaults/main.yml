@@ -21,6 +21,8 @@ postgresql_data_dir: "{{ __postgresql_data_dir }}"
 postgresql_bin_path: "{{ __postgresql_bin_path }}"
 postgresql_config_path: "{{ __postgresql_config_path }}"
 
+postgresql_initdb_args: ""
+
 postgresql_global_config_options: []
 postgresql_hba_entries: []
 
