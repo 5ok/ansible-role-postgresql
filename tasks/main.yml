@@ -32,6 +32,13 @@
     - postgresql:setup
   when: postgresql_supported
 
+- name: "Configure postgresql"
+  ansible.builtin.include_tasks: common-config.yml
+  tags:
+    - postgresql
+    - postgresql:config
+  when: postgresql_supported
+
 - name: "Set systemd service"
   ansible.builtin.include_tasks: common-service.yml
   tags:
@@ -39,9 +46,17 @@
     - postgresql:setup
   when: postgresql_supported
 
-- name: "Configure postgresql"
-  ansible.builtin.include_tasks: common-config.yml
+- name: "Set systemd service"
+  ansible.builtin.include_tasks: common-service.yml
   tags:
     - postgresql
-    - postgresql:config
+    - postgresql:setup
   when: postgresql_supported
+
+
+- name: "Create database users"
+  ansible.builtin.include_tasks: common-users.yml
+  tags:
+    - postgresql
+    - postgresql:users
+  when: postgresql_supported and postgresql_service_state in ('started')

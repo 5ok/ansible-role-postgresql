@@ -28,3 +28,6 @@ postgresql_hba_entries: []
 
 postgresql_files: []
 postgresql_dirs: []
+
+postgresql_users_no_log: true
+postgresql_users: []

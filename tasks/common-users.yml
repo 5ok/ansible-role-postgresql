@@ -1,0 +1,22 @@
+---
+
+- name: Ensure PostgreSQL users are present.
+  community.postgresql.postgresql_user:
+    name: "{{ user.name }}"
+    password: "{{ user.password | default(omit) }}"
+    encrypted: "{{ user.encrypted | default(omit) }}"
+    role_attr_flags: "{{ user.role_attr_flags | default(omit) }}"
+    login_host: "{{ user.login_host | default('localhost') }}"
+    login_password: "{{ user.login_password | default(omit) }}"
+    login_user: "{{ user.login_user | default(postgresql_user) }}"
+    login_unix_socket: "{{ user.login_unix_socket | default(omit) }}"
+    port: "{{ user.port | default(omit) }}"
+  loop: "{{ postgresql_users }}"
+  loop_control:
+    loop_var: user
+#  no_log: "{{ postgresql_users_no_log }}"
+  become: true
+  become_user: "{{ postgresql_user }}"
+  # See: https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
+  vars:
+    ansible_ssh_pipelining: true
