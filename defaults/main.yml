@@ -3,6 +3,7 @@
 postgresql_version: 15
 
 postgresql_repository_custom: null
+postgresql_repository: true
 
 postgresql_packages_extra: []
 postgresql_install_client: true

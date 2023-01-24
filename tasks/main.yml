@@ -16,7 +16,7 @@
   tags:
     - postgresql
     - postgresql:repository
-  when: postgresql_supported
+  when: postgresql_supported and postgresql_repository
 
 - name: "Install packages"
   ansible.builtin.include_tasks: packages-{{ ansible_os_family }}.yml
