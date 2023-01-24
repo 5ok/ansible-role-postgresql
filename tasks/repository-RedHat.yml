@@ -2,7 +2,7 @@
 
 - name: "Install repository package"
   ansible.builtin.yum:
-    name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}/pgdg-redhat-repo-latest.noarch.rpm
+    name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}/pgdg-redhat-repo-latest.noarch.rpm # noqa yaml[line-length]
     state: present
     disable_gpg_check: true
   when: postgresql_repository_custom == None

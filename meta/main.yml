@@ -5,7 +5,7 @@ galaxy_info:
   company: 5ok s.r.o.
   description: install and configure postgresql from official repositories
   license: BSD
-  min_ansible_version: 2.1
+  min_ansible_version: 2.1  # noqa schema[meta]
   platforms:
     - name: EL
       versions:

@@ -16,7 +16,7 @@
     state: present
     keyring: /etc/apt/trusted.gpg.d/pgdg.gpg
 
-- name: "Update repository"
+- name: "Update repository" # noqa no-handler
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
   when: repository.changed

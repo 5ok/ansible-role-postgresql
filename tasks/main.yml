@@ -7,56 +7,82 @@
     - "os-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
     - "os-{{ ansible_os_family }}.yml"
     - "os-default.yml"
-
   tags:
     - always
 
 - name: "Include repository tasks"
-  ansible.builtin.include_tasks: repository-{{ ansible_os_family }}.yml
-  tags:
-    - postgresql
-    - postgresql:repository
+  ansible.builtin.include_tasks:
+    file: repository-{{ ansible_os_family }}.yml
+    apply:
+      tags:
+        - postgresql
+        - postgresql:repository
   when: postgresql_supported and postgresql_repository
+  tags:
+    - always
 
 - name: "Install packages"
-  ansible.builtin.include_tasks: packages-{{ ansible_os_family }}.yml
-  tags:
-    - postgresql
-    - postgresql:packages
+  ansible.builtin.include_tasks:
+    file: packages-{{ ansible_os_family }}.yml
+    apply:
+      tags:
+        - postgresql
+        - postgresql:packages
   when: postgresql_supported
+  tags:
+    - always
 
 - name: "Initialize database"
-  ansible.builtin.include_tasks: common-initialize.yml
-  tags:
-    - postgresql
-    - postgresql:setup
+  ansible.builtin.include_tasks:
+    file: common-initialize.yml
+    apply:
+      tags:
+        - postgresql
+        - postgresql:setup
   when: postgresql_supported
+  tags:
+    - always
 
 - name: "Configure postgresql"
-  ansible.builtin.include_tasks: common-config.yml
-  tags:
-    - postgresql
-    - postgresql:config
+  ansible.builtin.include_tasks:
+    file: common-config.yml
+    apply:
+      tags:
+        - postgresql
+        - postgresql:config
   when: postgresql_supported
+  tags:
+    - always
 
 - name: "Set systemd service"
-  ansible.builtin.include_tasks: common-service.yml
-  tags:
-    - postgresql
-    - postgresql:setup
+  ansible.builtin.include_tasks:
+    file: common-service.yml
+    apply:
+      tags:
+        - postgresql
+        - postgresql:setup
   when: postgresql_supported
+  tags:
+    - always
 
 - name: "Set systemd service"
-  ansible.builtin.include_tasks: common-service.yml
-  tags:
-    - postgresql
-    - postgresql:setup
+  ansible.builtin.include_tasks:
+    file: common-service.yml
+    apply:
+      tags:
+        - postgresql
+        - postgresql:setup
   when: postgresql_supported
-
+  tags:
+    - always
 
 - name: "Create database users"
-  ansible.builtin.include_tasks: common-users.yml
-  tags:
-    - postgresql
-    - postgresql:users
+  ansible.builtin.include_tasks:
+    file: common-users.yml
+    apply:
+      tags:
+        - postgresql
+        - postgresql:users
   when: postgresql_supported and postgresql_service_state in ('started')
+  tags:
+    - always

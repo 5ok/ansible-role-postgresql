@@ -1,5 +1,5 @@
 ---
-- name: restart postgresql
+- name: restart postgresql  # noqa name[casing]
   ansible.builtin.service:
     name: "{{ postgresql_service_name }}"
     state: restarted
